@@ -1,6 +1,6 @@
 # habit_up
 
-A new Flutter project.
+Flutter project internship task.
 
 ## Getting Started
 
