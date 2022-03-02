@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:habit_up/profile.dart';
-import 'package:habit_up/todoui.dart';
+import 'package:habit_up/screens/profile.dart';
+import 'package:habit_up/screens/todoui.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class home extends StatefulWidget {
@@ -168,7 +168,7 @@ class _homeState extends State<home> {
                         fontSize: 20,
                             fontWeight: FontWeight.bold,
          
-                      ))),
+                      ),),),
                     ),
                     
                    ),
@@ -184,7 +184,7 @@ class _homeState extends State<home> {
               fit: StackFit.expand,
               children: [
                 Image.network(e, 
-                height: 500,
+                height: MediaQuery.of(context).size.height*0.5,
                 width: 300,
                 fit: BoxFit.cover,
                 ),
@@ -196,7 +196,7 @@ class _homeState extends State<home> {
              autoPlay:  true,
              enableInfiniteScroll: false,
              enlargeCenterPage: true,
-             height: 450
+             height: MediaQuery.of(context).size.height*0.5
            ),),
          SizedBox(height: 40),
             ]

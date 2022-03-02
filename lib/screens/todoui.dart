@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habit_up/dbhelper.dart';
+import 'package:habit_up/providers/dbhelper.dart';
 import 'package:intl/intl.dart';
 
 class TodoUi extends StatefulWidget {
@@ -12,21 +12,23 @@ class TodoUi extends StatefulWidget {
 class _TodoUiState extends State<TodoUi> {
 
   final dbhelper = Databasehelper.instance;
-   late DateTime _myDateTime;
+  late DateTime _myDateTime;
 
   final texteditingcontroller = TextEditingController();
   bool validated = true;
   String errtext = "";
   String todoedited = "";
+  DateTime date = DateTime.now();
+  String time = DateFormat('dd-mm-yyyy').format(DateTime.now());
   // ignore: deprecated_member_use
   List<dynamic> myitems = [];
   // ignore: deprecated_member_use
   List<Widget> children = [];//new List<Widget>();
 
-  void addtodo() async {
+  void addtodo(_currDate) async {
     Map<String, dynamic> row = {
       Databasehelper.columnName: todoedited,
-    };
+      Databasehelper.columnDate: _currDate,    };
     final id = await dbhelper.insert(row);
     print(id);
     Navigator.pop(context);
@@ -40,7 +42,7 @@ class _TodoUiState extends State<TodoUi> {
   Future<bool> query() async {
     myitems = [];
     children = [];
-    var allrows = await dbhelper.queryall();
+    var allrows = await dbhelper.queryall(time);
     allrows.forEach((row) {
       myitems.add(row.toString());
       children.add(Card(
@@ -123,7 +125,7 @@ class _TodoUiState extends State<TodoUi> {
                                 validated = false;
                               });
                             } else {
-                              addtodo();
+                              addtodo(time);
                             }
                           },
                           color: Colors.purple,
@@ -143,7 +145,6 @@ class _TodoUiState extends State<TodoUi> {
         });
   }
   //  late DateTime _myDateTime;
-  String time = ' ';
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -169,7 +170,7 @@ class _TodoUiState extends State<TodoUi> {
                 backgroundColor: Colors.white,
                 centerTitle: true,
                 title: Text(
-                  " ",
+                  "Ledger",
                   style: TextStyle(
                     fontFamily: "Raleway",
                     fontWeight: FontWeight.bold,
@@ -177,11 +178,35 @@ class _TodoUiState extends State<TodoUi> {
                 ),
               ),
               backgroundColor: Colors.white,
-              body: Center(
-                child: Text(
-                  "No Task Avaliable",
-                  style: TextStyle(fontFamily: "Raleway", fontSize: 20.0),
-                ),
+              body:  Column(
+                children: [
+                  SizedBox(height:20),
+                  SizedBox(height: 40.0),
+                  TextButton(
+                      onPressed: ()async{
+                                    // setState(() {
+                                    //  final now = DateTime.now();
+                                    //  time = DateFormat('dd-MM-yyyy').format(now);
+                                    // });
+                                    
+                      _myDateTime = (await showDatePicker(
+                                     context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2010),
+                                      lastDate: DateTime(2025),))!;
+                                      setState(() {
+                                          time = DateFormat('dd-mm-yyyy').format(_myDateTime);
+                                      });
+                               },
+                              child: Text('$time'),
+                  ),
+                  Center(
+                    child: Text("No Data to display",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontWeight: FontWeight.bold)
+                  ),)
+                ],
               ),
             );
           } else {
@@ -198,7 +223,7 @@ class _TodoUiState extends State<TodoUi> {
                 backgroundColor: Colors.white,
                 centerTitle: true,
                 title: Text(
-                  " ",
+                  "Journal",
                   style: TextStyle(
                     fontFamily: "Raleway",
                     fontWeight: FontWeight.bold,
@@ -209,38 +234,25 @@ class _TodoUiState extends State<TodoUi> {
               body: Column(
                 children: [
                   SizedBox(height:20),
-                   Text(
-                    'HABITS',
-                    style: TextStyle( color: Colors.pink,
-                      fontSize: 25.0,
-                      letterSpacing: 1.0,
-       
-                    ),
-                  ),
-                  SizedBox(height:20),
-                  Text(
-                               time,
-                               style: TextStyle(fontSize: 20.0)
-                             ),
-                             SizedBox(height: 40.0),
-                             ElevatedButton(
-                               onPressed: ()async{
+                  SizedBox(height: 40.0),
+                  TextButton(
+                      onPressed: ()async{
                                     // setState(() {
                                     //  final now = DateTime.now();
                                     //  time = DateFormat('dd-MM-yyyy').format(now);
                                     // });
                                     
-                                _myDateTime = (await showDatePicker(
+                      _myDateTime = (await showDatePicker(
                                      context: context,
                                       initialDate: DateTime.now(),
-                                       firstDate: DateTime(2010),
-                                        lastDate: DateTime(2025)))!;
-                                        setState(() {
+                                      firstDate: DateTime(2010),
+                                      lastDate: DateTime(2025),))!;
+                                      setState(() {
                                           time = DateFormat('dd-mm-yyyy').format(_myDateTime);
-                                        });
+                                      });
                                },
-                                child: Text('Choose your day'),
-                                ),
+                              child: Text('$time'),
+                  ),
                   SingleChildScrollView(
                     child: Column(children: children),
                   ),

@@ -17,6 +17,7 @@ class Databasehelper {
   // column names
   static final columnID = 'id';
   static final columnName = "todo";
+  static final columnDate = "date";
 
   // a database
   static Database? _database;
@@ -48,7 +49,8 @@ class Databasehelper {
     await db.execute('''
       CREATE TABLE $table (
         $columnID INTEGER PRIMARY KEY,
-        $columnName TEXT NOT NULL
+        $columnName TEXT NOT NULL,
+        $columnDate TEXT NOT NULL
       );
       ''');
   }
@@ -60,9 +62,11 @@ class Databasehelper {
   }
 
   // function to query all the rows
-  Future<List<Map<String, dynamic>>> queryall() async {
+  Future<List<Map<String, dynamic>>> queryall(String time) async {
     Database? db = await instance.databse;
-    return await db!.query(table);
+    //List<Map> list = await db!.rawQuery('SELECT * FROM $table WHERE $columnDate == $_myDateTime');
+    //return list;
+    return await db!.query(table, where: "$columnDate = ?", whereArgs: [time]);
   }
 
   // function to delete some data

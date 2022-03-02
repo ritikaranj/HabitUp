@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habit_up/day.dart';
-import 'package:habit_up/home.dart';
-import 'package:habit_up/profile.dart';
-import 'package:habit_up/todoui.dart';
+import 'package:habit_up/screens/home.dart';
+import 'package:habit_up/screens/profile.dart';
+import 'package:habit_up/screens/todoui.dart';
 
 void main() {
   runApp(MyApp());
@@ -82,7 +81,7 @@ final List<Widget> _children =
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_rounded),
-            label: 'Day',
+            label: 'Ledger',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
