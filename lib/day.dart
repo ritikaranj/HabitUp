@@ -27,7 +27,8 @@ class _dayState extends State<day> {
                    time,
                    style: TextStyle(fontSize: 20.0)
                  ),
-                 SizedBox(height: 100.0),
+                 SizedBox(height: 40.0),
+                 
                  ElevatedButton(
                    onPressed: ()async{
                         // setState(() {

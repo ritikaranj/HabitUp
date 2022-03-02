@@ -12,9 +12,9 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
      return new Scaffold(
-      //  appBar: new AppBar(
-      //    title: new Text("profile"),
-      //  ),
+       appBar: new AppBar(
+         title: new Text("profile"),
+       ),
        body: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
         child: Column(
@@ -22,14 +22,14 @@ class _profileState extends State<profile> {
           children: [
             Center(
               child: CircleAvatar(
-                backgroundImage: AssetImage('assets'),
+                backgroundImage: AssetImage('assets/profile.png'),
                 radius: 40.0,
               ),
             ),
-            Divider(
-                height: 140.0,
-                color:Colors.grey[800]
-            ),
+            // Divider(
+            //     height: 140.0,
+            //     color:Colors.grey[800]
+            // ),
             Text(
               'NAME',
               style: TextStyle(

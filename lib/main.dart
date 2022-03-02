@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_up/day.dart';
 import 'package:habit_up/home.dart';
 import 'package:habit_up/profile.dart';
+import 'package:habit_up/todoui.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +35,7 @@ int _currentIndex = 0;
 final List<Widget> _children =
 [
   home(),
-  day(),
+  TodoUi(),
   profile(), 
 
 ];
@@ -66,9 +67,9 @@ final List<Widget> _children =
   Widget build(BuildContext context) {
     return Scaffold(
 
-       appBar: AppBar(
-         title: Text('Habit up'),
-       ),
+      //  appBar: AppBar(
+      //    title: Text('Habit up'),
+      //  ),
        body: _children[_currentIndex],
       
        bottomNavigationBar: BottomNavigationBar(
